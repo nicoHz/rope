@@ -1,19 +1,14 @@
 
-function point_1(x, y, radius)
+function points(x, y, radius, numberOfPoints)
 {
-    ctx.beginPath();
-    ctx.arc(x, y, radius, 0, 2 * Math.PI, true);
+    for(var i=0; i<numberOfPoints; i++) {
+	ctx.beginPath();
+    ctx.arc(x * i + x, y, radius, 0, 2 * Math.PI, true);
+	console.log(i);
     ctx.fill();
-}
-
-function point_2(x, y, radius)
-{
-    ctx.beginPath();
-    ctx.arc(x, y, radius, 0, 2 * Math.PI, true);
-    ctx.fill();
+	}
 }
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
-point_1(20,40,6);
-point_2(40,60,6);
+points(70,60,6,5);
