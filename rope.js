@@ -5,6 +5,7 @@ function circles(horizontalPositions, verticalPositions, radius)
 		throw new Error("horizontalPositions.length does not match verticalPositions.length");
 	}
 
+	var oldx, oldy;
 	for(var i=0; i<horizontalPositions.length; i++) {
 		var x = horizontalPositions[i];
 		var y = verticalPositions[i]; 	
@@ -13,11 +14,14 @@ function circles(horizontalPositions, verticalPositions, radius)
 		ctx.arc(x, y, radius, 0, 2 * Math.PI);
 		ctx.fill();
 
-		if (i+1 < horizontalPositions.length) {
+		if (i !== 0) {
 			ctx.moveTo(x, y); 
-			ctx.lineTo(horizontalPositions[i+1], verticalPositions[i+1]);
+			ctx.lineTo(oldx, oldy);
 			ctx.stroke();
 		}
+
+		oldx = x;
+		oldy = y;
 	}
 }
 
