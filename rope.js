@@ -13,15 +13,17 @@ function circles(horizontalPositions, verticalPositions, radius)
 		ctx.arc(x, y, radius, 0, 2 * Math.PI);
 		ctx.fill();
 
-		ctx.moveTo(x, y); 
-		ctx.lineTo(horizontalPositions[j], verticalPositions[j]);
-		ctx.stroke();
+		if (j < horizontalPositions.length) {
+			ctx.moveTo(x, y); 
+			ctx.lineTo(horizontalPositions[j], verticalPositions[j]);
+			ctx.stroke();
+		}
 	}
 }
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-var x_positions = [20,40,200,250,260];
-var y_positions = [200,400,300,240,40]; 
+var x_positions = [20, 40, 200, 250, 260];
+var y_positions = [200, 400, 300, 240, 40]; 
 
 circles(x_positions, y_positions,6);
