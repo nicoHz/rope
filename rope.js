@@ -1,14 +1,14 @@
 
-function circles(horizontalPositions, verticalPositions, radius)
+function drawSine(numberOfCircles, horizontalPositions, verticalPositions, radius)
 {
-	if (horizontalPositions.length !== verticalPositions.length) {
+/*	if (horizontalPositions.length !== verticalPositions.length) {
 		throw new Error("horizontalPositions.length does not match verticalPositions.length");
 	}
-
+*/
 	var oldx, oldy;
-	for(var i=0; i<horizontalPositions.length; i++) {
+	for(var i=0; i<numberOfCircles; i++) {
 		var x = horizontalPositions[i];
-		var y = verticalPositions[i]; 	
+		var y = verticalPositions[i];
 		
 		ctx.beginPath();
 		ctx.arc(x, y, radius, 0, 2 * Math.PI);
@@ -25,9 +25,13 @@ function circles(horizontalPositions, verticalPositions, radius)
 	}
 }
 
+
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-var x_positions = [20, 40, 200, 250, 260];
-var y_positions = [200, 400, 300, 240, 40]; 
 
-circles(x_positions, y_positions,6);
+var t = 50;
+var x_positions = t + 5; 
+var y_positions = Math.sin(t + 0.5); 
+
+drawSine(100, x_positions, y_positions,6);
+
