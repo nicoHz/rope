@@ -5,7 +5,7 @@ function drawRope(horizontalPositions, verticalPositions, radius){
 	}
 
 	var oldx, oldy;
-	for(var i=0; i<=360; i++) {
+	for(var i=0; i<=horizontalPositions.length; i++) {
 		var x = horizontalPositions[i];
 		var y = verticalPositions[i];
 		
@@ -15,7 +15,11 @@ function drawRope(horizontalPositions, verticalPositions, radius){
 
 		if (i !== 0) {
 			ctx.moveTo(x, y); 
-			ctx.lineTo(oldx, oldy); // das objekt ctx hat die eigenschaft lineTo, die eine funktion ist. die funktion lineTo wird mir zwei parametern aufgerufen: werte oldx, oldy 
+			ctx.lineTo(oldx, oldy); 
+			/* das objekt ctx hat die eigenschaft lineTo,
+			die eine funktion ist. die funktion lineTo wird 
+			mir zwei parametern aufgerufen: werte oldx, oldy 
+			*/
 			ctx.stroke();
 		}
 
@@ -47,8 +51,10 @@ var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
 var x_positions = [20, 40, 60, 100, 130, 140];
-var y_positions = sinusShape(x_positions);// Übergabe des Arrayis x_psition an function sinusShape und zuweisung des return-wertes von sinusShape an y_positions.
-console.log(y_positions);
+var y_positions = sinusShape(x_positions);
+/* Übergabe des Arrayis x_position an function sinusShape
+und zuweisung des return-wertes von sinusShape an y_positions.
+*/
 
 drawRope(x_positions, y_positions, 6);
 
