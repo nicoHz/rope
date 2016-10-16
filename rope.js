@@ -55,7 +55,11 @@ function x_positionsControl(start, end, count) {
 	var result = [];
 	var single_x;
 	for (var x=start; x<end; x+=distance) {
-		single_x = x + distance;
+		if (x > start) {
+			single_x = x + distance;
+		} else {
+			single_x = start;
+		}
 		console.log("single_x = " + single_x);
 		result.push(single_x);
 	}
