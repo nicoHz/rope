@@ -47,6 +47,19 @@ function sinusShape(xps) {
 	return yps;
 }
 
+function calcXpositions(start, end, count) {
+	if (count<2) {
+		throw new Error("Count must be two or higher");
+	}
+	var distance = (end-start) / count;
+	var result = [];
+	for (var x=start; x<end; x+=distance) {
+		result.push(x);
+	}
+	console.log(x);
+	return result;
+}
+
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
