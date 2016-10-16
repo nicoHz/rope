@@ -47,23 +47,26 @@ function sinusShape(xps) {
 	return yps;
 }
 
-function calcXpositions(start, end, count) {
+function x_positionsControl(start, end, count) {
 	if (count<2) {
 		throw new Error("Count must be two or higher");
 	}
 	var distance = (end-start) / count;
 	var result = [];
+	var single_x;
 	for (var x=start; x<end; x+=distance) {
-		result.push(x);
+		single_x = x + distance;
+		console.log("single_x = " + single_x);
+		result.push(single_x);
 	}
-	console.log(x);
+	console.log(single_x);
 	return result;
 }
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
-var x_positions = [20, 40, 60, 100, 130, 140];
+var x_positions = x_positionsControl(70, 280, 7);
 var y_positions = sinusShape(x_positions);
 /* Übergabe des Arrayis x_position an function sinusShape
 und zuweisung des return-wertes von sinusShape an y_positions.
