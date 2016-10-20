@@ -51,20 +51,14 @@ function x_positionsControl(start, end, count) {
 	if (count<2) {
 		throw new Error("Count must be two or higher");
 	}
-	var distance = (end-start) / count;
-	var result = [];
-	var single_x;
-	for (var x=start; x<end; x+=distance) {
-		if (x > start) {
-			single_x = x + distance;
-		} else {
-			single_x = start;
-		}
-		console.log("single_x = " + single_x);
-		result.push(single_x);
+	var distance = (end-start) / (count -1);
+	var singleXs = [];
+	for (var n=0; n<count; n++) {
+		var xn = start + n * distance; 
+		singleXs.push(xn);
 	}
-	console.log(single_x);
-	return result;
+	console.log(singleXs);
+	return singleXs;
 }
 
 var canvas = document.getElementById("myCanvas");
@@ -77,4 +71,11 @@ und zuweisung des return-wertes von sinusShape an y_positions.
 */
 
 drawRope(x_positions, y_positions, 6);
+
+// test-block for function x_positionsControl 
+var test1 = x_positionsControl(3, 8, 2);
+console.log(test1);
+if (test1 + "" !== "3,8") {
+	console.log("Test failed. Expected [3,8]");
+}
 
