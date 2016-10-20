@@ -66,7 +66,7 @@ var ctx = canvas.getContext("2d");
 
 var x_positions = x_positionsControl(70, 280, 7);
 var y_positions = sinusShape(x_positions);
-/* Übergabe des Arrayis x_position an function sinusShape
+/* Übergabe des Array x_position an function sinusShape
 und zuweisung des return-wertes von sinusShape an y_positions.
 */
 
@@ -74,8 +74,16 @@ drawRope(x_positions, y_positions, 6);
 
 // test-block for function x_positionsControl 
 var test1 = x_positionsControl(3, 8, 2);
-console.log(test1);
-if (test1 + "" !== "3,8") {
+console.log(test1[0]);
+if (test1[0] !== 3 || test1[1] !== 8 || test1.length !== 2) {
 	console.log("Test failed. Expected [3,8]");
 }
+
+
+/* if (test1 + "" !== "3,8") {
+	console.log("Test failed. Expected [3,8]");
+}
+*/
+// this is another way to test: turn complex values like arrays 
+// into strings so they can be compared 
 
