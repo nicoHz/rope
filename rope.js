@@ -64,7 +64,7 @@ function x_positionsControl(start, end, count) {
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
-var x_positions = x_positionsControl(3, 8, 7);
+var x_positions = x_positionsControl(20, 890, 70);
 var y_positions = sinusShape(x_positions);
 /* Übergabe des Array x_position an function sinusShape
 und zuweisung des return-wertes von sinusShape an y_positions.
@@ -84,7 +84,15 @@ if (test1[0] !== 3 || test1[1] !== 8 || test1.length !== 2) {
 // this is another way to test: turn complex values like arrays 
 // into strings so they can be compared 
 
-var test2 = x_positionsControl(3, 8, 5);
+var test2 = x_positionsControl(3, 8, 4);
 if (test2[0] !== 3 || test2[1] !== 3 + 5/3 || test2[2] !== 3 + 10/3 || test2[3] !== 8) {
-	console.log("Test failed. Expected [3,?,?,8]");
-}	
+	console.log("Test failed. Expected [3, 4.666666666666667, 6.333333333333334, 8]");
+}
+
+try {
+	var test3 = x_positionsControl(3, 8, 1);
+	if (test3.length < 2); 
+}
+catch(err) {
+		console.log("Test failed. Count must be two or higher.");
+}
