@@ -48,9 +48,9 @@ function sinusShape(xps) {
 }
 
 function x_positionsControl(start, end, count) {
-	if (count<2) {
+/*	if (count<2) {
 		throw new Error("Count must be two or higher");
-	}
+	}*/
 	var distance = (end-start) / (count -1);
 	var singleXs = [];
 	for (var n=0; n<count; n++) {
@@ -89,10 +89,11 @@ if (test2[0] !== 3 || test2[1] !== 3 + 5/3 || test2[2] !== 3 + 10/3 || test2[3] 
 	console.log("Test failed. Expected [3, 4.666666666666667, 6.333333333333334, 8]");
 }
 
+var test3 = x_positionsControl(3, 8, 1); 
 try {
-	var test3 = x_positionsControl(3, 8, 1);
-	if (test3.length < 2); 
+	if (count < 2); 
 }
 catch(err) {
-		console.log("Test failed. Count must be two or higher.");
+	console.log("Count must be two or higher.");
 }
+
