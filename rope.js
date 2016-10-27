@@ -48,9 +48,9 @@ function sinusShape(xps) {
 }
 
 function x_positionsControl(start, end, count) {
-/*	if (count<2) {
+	if (count<2) {
 		throw new Error("Count must be two or higher");
-	}*/
+	}
 	var distance = (end-start) / (count -1);
 	var singleXs = [];
 	for (var n=0; n<count; n++) {
@@ -70,30 +70,41 @@ var y_positions = sinusShape(x_positions);
 und zuweisung des return-wertes von sinusShape an y_positions.
 */
 
+
+function unitTests() {
+	function trivialCase() {
+		var test = x_positionsControl(3, 8, 2);
+		if (test[0] !== 3 || test[1] !== 8 || test.length !== 2) {
+			console.log("Test failed. Expected [3,8]");
+		}
+		/* if (test1 + "" !== "3,8") {
+		   console.log("Test failed. Expected [3,8]");
+		   }
+		 */
+		// this is another way to test: turn complex values like arrays 
+		// into strings so they can be compared 
+	}
+
+	function normalCase() {
+		var test = x_positionsControl(3, 8, 4);
+		if (test[0] !== 3 || test[1] !== 3 + 5/3 || test[2] !== 3 + 10/3 || test[3] !== 8) {
+			console.log("Test failed. Expected [3, 4.666666666666667, 6.333333333333334, 8]");
+		}
+	}
+
+	function errorCase() {
+		// test: throws x_positionsControl an error?
+		try { 
+			x_positionsControl(3, 8, 1);
+			console.log("Test failed: Expected thrown error if count < 2");
+			// if this line is reached, it means x_positionsControl did not
+			// throw an error.
+		} catch(err) {}
+	}
+	trivialCase();
+	normalCase();
+	errorCase();
+}
+
+unitTests();
 drawRope(x_positions, y_positions, 6);
-
-// test-block for function x_positionsControl 
-var test1 = x_positionsControl(3, 8, 2);
-if (test1[0] !== 3 || test1[1] !== 8 || test1.length !== 2) {
-	console.log("Test failed. Expected [3,8]");
-}
-/* if (test1 + "" !== "3,8") {
-	console.log("Test failed. Expected [3,8]");
-}
-*/
-// this is another way to test: turn complex values like arrays 
-// into strings so they can be compared 
-
-var test2 = x_positionsControl(3, 8, 4);
-if (test2[0] !== 3 || test2[1] !== 3 + 5/3 || test2[2] !== 3 + 10/3 || test2[3] !== 8) {
-	console.log("Test failed. Expected [3, 4.666666666666667, 6.333333333333334, 8]");
-}
-
-var test3 = x_positionsControl(3, 8, 1); 
-try {
-	if (count < 2); 
-}
-catch(err) {
-	console.log("Count must be two or higher.");
-}
-
