@@ -61,6 +61,16 @@ function x_positionsControl(start, end, count) {
 	return singleXs;
 }
 
+/*
+function undulation() {
+	var x = t;
+	var y = 
+
+	for (i = yAxis; i < width; i += 10) {
+	}
+}
+*/
+
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
@@ -85,6 +95,45 @@ function unitTests() {
 		// into strings so they can be compared 
 	}
 
+	function roundNum(numbers) {
+		var roundNum = [];
+		for (i=0; i<numbers.length; i++) {
+			var x = Math.round(numbers[i]*100)/100;
+			roundNum.push(x);
+		}
+		return roundNum;
+	}
+
+	function testRoundNum() {
+		var num = roundNum([3, 8.25, 4.5555]);
+		var expectNum = "3,8.25,4.56";
+		if (num + "" !== expectNum) {
+			console.log("Test failed. Expected an empty array.");
+		}
+	}
+
+	function fuzzyNumArrayCompare(array1, array2) {
+		var roundedArray1 = roundNum(array1);
+		var roundedArray2 = roundNum(array2);
+		if (roundedArray1 + "" == roundedArray2 + "") {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	function testFuzzyNumArrayCompare() {
+		if (fuzzyNumArrayCompare([], []) === false) {
+			console.log("Test failed. Expected two empty arrays to be equal.");
+		}
+		if (fuzzyNumArrayCompare([3], [3]) === false) {
+			console.log("Test failed. Expected [3] to be equal to [3].");
+		}
+		if (fuzzyNumArrayCompare([3.23], [3.225]) === false) {
+			console.log("Test failed. Expected [3.23] to be equal to [3.225].");
+		}
+	}
+
 	function normalCase() {
 		var test = x_positionsControl(3, 8, 4);
 		if (test[0] !== 3 || test[1] !== 3 + 5/3 || test[2] !== 3 + 10/3 || test[3] !== 8) {
@@ -101,6 +150,9 @@ function unitTests() {
 			// throw an error.
 		} catch(err) {}
 	}
+	testRoundNum();
+	testFuzzyNumArrayCompare();
+
 	trivialCase();
 	normalCase();
 	errorCase();
