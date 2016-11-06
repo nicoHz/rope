@@ -30,8 +30,7 @@ function drawRope(horizontalPositions, verticalPositions, radius){
 
 function sinusShape(xps) {	
 	var yps = []; 
-	for (var i=0; i< xps.length; i++) {
-
+	for (var i=0; i < xps.length; i++) {
 		var y = Math.sin(xps[i] * Math.PI/180) * -120 + 180;
 		yps.push(y);
 		/* 
@@ -43,71 +42,67 @@ function sinusShape(xps) {
 		*/
 	}
 	console.log('yps=', yps); 
-
 	return yps;
 }
 
-function x_positionsControl(start, end, count) {
+function calcXpositions(start, end, count) {
 	if (count<2) {
 		throw new Error("Count must be two or higher");
 	}
 	var distance = (end-start) / (count -1);
 	var singleXs = [];
-	for (var n=0; n<count; n++) {
+	for (var n=0; n < count; n++) {
 		var xn = start + n * distance; 
 		singleXs.push(xn);
 	}
-	console.log(singleXs);
 	return singleXs;
 }
-
-/*
-function undulation() {
-	var x = t;
-	var y = 
-
-	for (i = yAxis; i < width; i += 10) {
-	}
-}
-*/
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
-var x_positions = x_positionsControl(20, 890, 70);
+var x_positions = calcXpositions(20,890,70);
 var y_positions = sinusShape(x_positions);
 /* Übergabe des Array x_position an function sinusShape
 und zuweisung des return-wertes von sinusShape an y_positions.
 */
 
-
 function unitTests() {
 	function trivialCase() {
-		var test = x_positionsControl(3, 8, 2);
-		if (test[0] !== 3 || test[1] !== 8 || test.length !== 2) {
-			console.log("Test failed. Expected [3,8]");
+		var test_positions = calcXpositions(3,8,2);
+		var resultExpected = [3,8];
+		if (test_positions.length !== resultExpected.length) {
+			console.log("Test failed. Expected " + resultExpected.length);
 		}
-		/* if (test1 + "" !== "3,8") {
-		   console.log("Test failed. Expected [3,8]");
-		   }
-		 */
-		// this is another way to test: turn complex values like arrays 
-		// into strings so they can be compared 
+
+		for (var i=0; i < test_positions.length; i++) {
+			for (var j=0; j < resultExpected.length; j++) {
+				if (test_positions.length[i] !== resultExpected.length[j]) {
+					console.log("Test failed. Expected content to be equal.");
+					return false;
+				}
+			}
+		} return true;
 	}
 
 	function roundNum(numbers) {
-		var roundNum = [];
-		for (i=0; i<numbers.length; i++) {
+		var roundedNum = [];
+		for (i=0; i < numbers.length; i++) {
 			var x = Math.round(numbers[i]*100)/100;
-			roundNum.push(x);
+			roundedNum.push(x);
 		}
-		return roundNum;
+		console.log("rounded values of x: " + roundedNum);
+		return roundedNum;
 	}
 
 	function testRoundNum() {
 		var num = roundNum([3, 8.25, 4.5555]);
 		var expectNum = "3,8.25,4.56";
 		if (num + "" !== expectNum) {
+			console.log("Test failed. Expected " + expectNum);
+		}
+		var emptyArray = roundNum([]);
+		if (emptyArray.length !== 0) {
 			console.log("Test failed. Expected an empty array.");
 		}
 	}
@@ -135,23 +130,24 @@ function unitTests() {
 	}
 
 	function normalCase() {
-		var test = x_positionsControl(3, 8, 4);
-		if (test[0] !== 3 || test[1] !== 3 + 5/3 || test[2] !== 3 + 10/3 || test[3] !== 8) {
-			console.log("Test failed. Expected [3, 4.666666666666667, 6.333333333333334, 8]");
+		if (test_positions.toString() !== "3,4.67,6.33,8") {
+			console.log("Test failed. Expected [3, 4.67, 6.33, 8]");
 		}
 	}
 
 	function errorCase() {
-		// test: throws x_positionsControl an error?
+		// test: throws x_positions an error?
 		try { 
-			x_positionsControl(3, 8, 1);
+			calcXpositions(3,8,1);
 			console.log("Test failed: Expected thrown error if count < 2");
-			// if this line is reached, it means x_positionsControl did not
+			// if this line is reached, it means calcXpositions did not
 			// throw an error.
 		} catch(err) {}
 	}
-	testRoundNum();
-	testFuzzyNumArrayCompare();
+
+	var test_positions = roundNum(calcXpositions(3, 8, 4));
+//	testRoundNum();
+//	testFuzzyNumArrayCompare();
 
 	trivialCase();
 	normalCase();
