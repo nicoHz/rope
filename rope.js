@@ -159,7 +159,7 @@ function unitTests() {
 
 	function errorCase() {
 		try { 
-			calcXpositions(3,8,2);
+			calcXpositions(3,8,1);
 			console.log("Test failed: Expected thrown error if count < 2");
 			// if this line is reached, it means calcXpositions did not
 			// throw an error.
@@ -169,7 +169,7 @@ function unitTests() {
 	testRoundNum();
 	testFuzzyNumArrayCompare();
 
-	testArrayCompare(array1, array2);
+	testArrayCompare();
 	trivialCase();
 	normalCase();
 	errorCase();
