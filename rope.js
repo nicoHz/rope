@@ -100,6 +100,9 @@ function unitTests() {
 	
 	function trivialCase() {
 		var test_positions = calcXpositions(3,8,2);
+		if (arrayCompare(test_positions, [3,8]) !== true) {
+			console.log("Test failed. Expected result to be [3,8]");
+		}
 	}
 
 	function roundNum(numbers) {
@@ -149,18 +152,10 @@ function unitTests() {
 	function normalCase() {
 		var test_positions = roundNum(calcXpositions(3,8,4));
 		var shouldBeResult = [3,4.67,6.33,8];
-		if (test_positions.length != shouldBeResult.length) {
-			console.log("Test failed. Expected test_positions.length to be equal to " + shouldBeResult.length);
+		if (arrayCompare(test_positions, shouldBeResult) !== true) {
+			console.log("Test failed. Expected calcXpositions to return roughly: " + shouldBeResult);
 		}
-		for (var i = 0; i < test_positions.length; i++) {
-			if (test_positions[i] !== shouldBeResult[i]) {
-				console.log("Test failed. Expected content to be equal.");
-				return false;
-			}
-		}
-		return true;
 	}
-	
 
 	function errorCase() {
 		try { 
