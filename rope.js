@@ -67,22 +67,39 @@ var y_positions = sinusShape(x_positions);
 und zuweisung des return-wertes von sinusShape an y_positions.
 */
 
+function arrayCompare(array1, array2) {
+	if (array1.length != array2.length) {
+		return false;
+	}
+	for (var i = 0; i < array1.length; i++) {
+		if (array1[i] != array2[i]) {
+			return false;
+		}
+	}
+	return true;
+}
+
+
+// *****************************************************************************************
 function unitTests() {
+
+	function testArrayCompare() {
+		if (arrayCompare([2,3,4],[2]) !== false) {
+			console.log("Test failed. arrayCompare() should return false, when parameters don't have the same length.");
+		}
+		if (arrayCompare([],[]) !== true) {
+			console.log("Test failed. arrayCompare() should return truee, when comparing two empty arrays.");
+		}
+		if (arrayCompare([2,3,4],[2,3,5]) !== false) {
+			console.log("Test failed. arrayCompare() should return false, when parameters don't have the same elements.");
+		}
+		if (arrayCompare([2,3,4],[2,3,4]) !== true) {
+			console.log("Test failed. arrayCompare() should return true, when parameters are equal.");
+		}
+	}
+	
 	function trivialCase() {
 		var test_positions = calcXpositions(3,8,2);
-		var resultExpected = [3,8];
-		if (test_positions.length !== resultExpected.length) {
-			console.log("Test failed. Expected " + resultExpected.length);
-		}
-
-		for (var i=0; i < test_positions.length; i++) {
-			for (var j=0; j < resultExpected.length; j++) {
-				if (test_positions.length[i] !== resultExpected.length[j]) {
-					console.log("Test failed. Expected content to be equal.");
-					return false;
-				}
-			}
-		} return true;
 	}
 
 	function roundNum(numbers) {
@@ -96,9 +113,9 @@ function unitTests() {
 	}
 
 	function testRoundNum() {
-		var num = roundNum([3, 8.25, 4.5555]);
+		var numbers = roundNum([3, 8.25, 4.5555]);
 		var expectNum = "3,8.25,4.56";
-		if (num + "" !== expectNum) {
+		if (numbers + "" !== expectNum) {
 			console.log("Test failed. Expected " + expectNum);
 		}
 		var emptyArray = roundNum([]);
@@ -130,25 +147,34 @@ function unitTests() {
 	}
 
 	function normalCase() {
-		if (test_positions.toString() !== "3,4.67,6.33,8") {
-			console.log("Test failed. Expected [3, 4.67, 6.33, 8]");
+		var test_positions = roundNum(calcXpositions(3,8,4));
+		var shouldBeResult = [3,4.67,6.33,8];
+		if (test_positions.length != shouldBeResult.length) {
+			console.log("Test failed. Expected test_positions.length to be equal to " + shouldBeResult.length);
 		}
+		for (var i = 0; i < test_positions.length; i++) {
+			if (test_positions[i] !== shouldBeResult[i]) {
+				console.log("Test failed. Expected content to be equal.");
+				return false;
+			}
+		}
+		return true;
 	}
+	
 
 	function errorCase() {
-		// test: throws x_positions an error?
 		try { 
-			calcXpositions(3,8,1);
+			calcXpositions(3,8,2);
 			console.log("Test failed: Expected thrown error if count < 2");
 			// if this line is reached, it means calcXpositions did not
 			// throw an error.
 		} catch(err) {}
 	}
 
-	var test_positions = roundNum(calcXpositions(3, 8, 4));
-//	testRoundNum();
-//	testFuzzyNumArrayCompare();
+	testRoundNum();
+	testFuzzyNumArrayCompare();
 
+	testArrayCompare(array1, array2);
 	trivialCase();
 	normalCase();
 	errorCase();
