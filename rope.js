@@ -182,8 +182,14 @@ und zuweisung des return-wertes von sinusShape an y_positions.
 function drawFrame(){
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	var y_positions = sinusShape(x_positions, Date.now()/1000); // Date.now gibt ms aus, daher Umrechnung von ms in s
-
+	drawRope(x_positions, y_positions, 6);
+	
+	y_positions = sinusShape(x_positions, Date.now()*2/1000 + 3.14); // Date.now gibt ms aus, daher Umrechnung von ms in s
+	drawRope(x_positions, y_positions, 6);
+	
+	y_positions = sinusShape(x_positions, Date.now()*0.5/1000 + 3.14); // Date.now gibt ms aus, daher Umrechnung von ms in s
 	drawRope(x_positions, y_positions, 6);
 }
 
 setInterval(drawFrame, 20);
+
