@@ -28,18 +28,21 @@ function drawRope(horizontalPositions, verticalPositions, radius){
 	}
 }
 
-function sinusShape(xps) {	
+function sinusShape(xps, t) { // weiteres Element könnte die Amplitude sy sein 	
 	var yps = []; 
+	var sy = 120;
+
 	for (var i=0; i < xps.length; i++) {
-		var y = Math.sin(xps[i] * Math.PI/180) * -120 + 180;
+		var y = Math.sin(xps[i] * Math.PI/180 + t) * sy + 180; 
 		yps.push(y);
+
 		/* 
-		y = sin(x * sx + tx) * sy + ty
-		sx: in x richtung skaliert = frequnz auf x achse 
-		sy: skalierung der amplitude
-		ty: verschiebt nach oben bzw. unten
-		tx: transmission links, rechts
-		*/
+		   y = sin(x * sx + tx) * sy + ty
+sx: in x richtung skaliert = frequnz auf x achse // bei x * 2 ist die Frequenz doppelt so hoch 
+sy: skalierung der amplitude
+ty: verschiebt nach oben bzw. unten
+tx: translation links, rechts
+		 */
 	}
 	console.log('yps=', yps); 
 	return yps;
@@ -58,14 +61,6 @@ function calcXpositions(start, end, count) {
 	return singleXs;
 }
 
-var canvas = document.getElementById("myCanvas");
-var ctx = canvas.getContext("2d");
-
-var x_positions = calcXpositions(20,890,70);
-var y_positions = sinusShape(x_positions);
-/* Übergabe des Array x_position an function sinusShape
-und zuweisung des return-wertes von sinusShape an y_positions.
-*/
 
 function arrayCompare(array1, array2) {
 	if (array1.length != array2.length) {
@@ -176,4 +171,19 @@ function unitTests() {
 }
 
 unitTests();
-drawRope(x_positions, y_positions, 6);
+
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+
+var x_positions = calcXpositions(20,890,50);
+/* Übergabe des Array x_position an function sinusShape
+und zuweisung des return-wertes von sinusShape an y_positions.
+*/
+function drawFrame(){
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	var y_positions = sinusShape(x_positions, Date.now()/1000); // Date.now gibt ms aus, daher Umrechnung von ms in s
+
+	drawRope(x_positions, y_positions, 6);
+}
+
+setInterval(drawFrame, 20);
