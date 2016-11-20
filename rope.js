@@ -183,10 +183,17 @@ und zuweisung des return-wertes von sinusShape an y_positions.
 function drawFrame(){
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	var y_positions = sinusShape(x_positions, Date.now()/1000); // Date.now gibt ms aus, daher Umrechnung von ms in s
-	drawRope(x_positions, y_positions, 6, "#FF0000", "#FF0000");
-	
-	y_positions = sinusShape(x_positions, Date.now()*2/1000 + 3.14); 
-	drawRope(x_positions, y_positions, 6, "#296AE3", "#296AE3");
+	function drawRopes(number) {
+
+		for (var i = 1; i<= number; i++) {
+			drawRope(x_positions, y_positions, 6, "#FF0000", "#FF0000");
+			console.log("number of sineWave:" + i);
+		}
+	}
+	drawRopes(10);
+
+//	y_positions = sinusShape(x_positions, Date.now()*2/1000 + 3.14); 
+//	drawRope(x_positions, y_positions, 6, "#296AE3", "#296AE3");
 	
 //	y_positions = sinusShape(x_positions, Date.now()/1000 + 0.01); 
 //	drawRope(x_positions, y_positions, 6);
