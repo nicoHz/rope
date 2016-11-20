@@ -1,5 +1,5 @@
 
-function drawRope(horizontalPositions, verticalPositions, radius){
+function drawRope(horizontalPositions, verticalPositions, radius, colorFill, colorStroke){
 	if (horizontalPositions.length !== verticalPositions.length) {
 		throw new Error("horizontalPositions.length does not match verticalPositions.length");
 	}
@@ -12,6 +12,7 @@ function drawRope(horizontalPositions, verticalPositions, radius){
 		ctx.beginPath();
 		ctx.arc(x, y, radius, 0, 2 * Math.PI);
 		ctx.fill();
+		ctx.fillStyle = colorFill;
 
 		if (i !== 0) {
 			ctx.moveTo(x, y); 
@@ -20,6 +21,7 @@ function drawRope(horizontalPositions, verticalPositions, radius){
 			die eine funktion ist. die funktion lineTo wird 
 			mir zwei parametern aufgerufen: werte oldx, oldy 
 			*/
+			ctx.strokeStyle = colorStroke; 
 			ctx.stroke();
 		}
 
@@ -174,7 +176,6 @@ unitTests();
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-
 var x_positions = calcXpositions(20,890,50);
 /* Übergabe des Array x_position an function sinusShape
 und zuweisung des return-wertes von sinusShape an y_positions.
@@ -182,13 +183,13 @@ und zuweisung des return-wertes von sinusShape an y_positions.
 function drawFrame(){
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	var y_positions = sinusShape(x_positions, Date.now()/1000); // Date.now gibt ms aus, daher Umrechnung von ms in s
-	drawRope(x_positions, y_positions, 6);
+	drawRope(x_positions, y_positions, 6, "#FF0000", "#FF0000");
 	
-	y_positions = sinusShape(x_positions, Date.now()*2/1000 + 3.14); // Date.now gibt ms aus, daher Umrechnung von ms in s
-	drawRope(x_positions, y_positions, 6);
+	y_positions = sinusShape(x_positions, Date.now()*2/1000 + 3.14); 
+	drawRope(x_positions, y_positions, 6, "#296AE3", "#296AE3");
 	
-	y_positions = sinusShape(x_positions, Date.now()*0.5/1000 + 3.14); // Date.now gibt ms aus, daher Umrechnung von ms in s
-	drawRope(x_positions, y_positions, 6);
+//	y_positions = sinusShape(x_positions, Date.now()/1000 + 0.01); 
+//	drawRope(x_positions, y_positions, 6);
 }
 
 setInterval(drawFrame, 20);
