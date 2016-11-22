@@ -1,5 +1,5 @@
 
-function drawRope(horizontalPositions, verticalPositions, radius){
+function drawRope(horizontalPositions, verticalPositions, radius, colorFill, colorStyle) {
 	if (horizontalPositions.length !== verticalPositions.length) {
 		throw new Error("horizontalPositions.length does not match verticalPositions.length");
 	}
@@ -12,6 +12,7 @@ function drawRope(horizontalPositions, verticalPositions, radius){
 		ctx.beginPath();
 		ctx.arc(x, y, radius, 0, 2 * Math.PI);
 		ctx.fill();
+		ctx.fillStyle = colorFill;
 
 		if (i !== 0) {
 			ctx.moveTo(x, y); 
@@ -20,6 +21,7 @@ function drawRope(horizontalPositions, verticalPositions, radius){
 			die eine funktion ist. die funktion lineTo wird 
 			mir zwei parametern aufgerufen: werte oldx, oldy 
 			*/
+			ctx.strokeStyle = colorStyle;
 			ctx.stroke();
 		}
 
@@ -191,12 +193,12 @@ function drawFrame(){
 		ty = ty + 0.02;
 		ctx.globalAlpha = ctx.globalAlpha - 0.1;
 		var y_positions = sinusShape(x_positions, Date.now()/1000 + ty); 
-		drawRope(x_positions, y_positions, 3);
+		drawRope(x_positions, y_positions, 3, "#e04c52", "#e04c52");
 		console.log("number of sine wave: " + i + "ty: " + ty + "gA: " + ctx.globalAlpha);
 	}
 
-	//	y_positions = sinusShape(x_positions, Date.now()*2/1000 + 3.14); 
-	//	drawRope(x_positions, y_positions, 6, "#296AE3", "#296AE3");
+		var y_positions = sinusShape(x_positions, Date.now()*2/1000 + 3.14); 
+		drawRope(x_positions, y_positions, 6, "#296AE3", "#296AE3");
 
 	//	y_positions = sinusShape(x_positions, Date.now()/1000 + 0.01); 
 	//	drawRope(x_positions, y_positions, 6);
