@@ -5,6 +5,9 @@ function drawRope(horizontalPositions, verticalPositions, radius, colorFill, col
 	}
 
 	var oldx, oldy;
+	ctx.strokeStyle = colorStyle;
+	ctx.fillStyle = colorFill;
+	
 	for(var i=0; i<=horizontalPositions.length; i++) {
 		var x = horizontalPositions[i];
 		var y = verticalPositions[i];
@@ -12,7 +15,6 @@ function drawRope(horizontalPositions, verticalPositions, radius, colorFill, col
 		ctx.beginPath();
 		ctx.arc(x, y, radius, 0, 2 * Math.PI);
 		ctx.fill();
-		ctx.fillStyle = colorFill;
 
 		if (i !== 0) {
 			ctx.moveTo(x, y); 
@@ -21,7 +23,6 @@ function drawRope(horizontalPositions, verticalPositions, radius, colorFill, col
 			die eine funktion ist. die funktion lineTo wird 
 			mir zwei parametern aufgerufen: werte oldx, oldy 
 			*/
-			ctx.strokeStyle = colorStyle;
 			ctx.stroke();
 		}
 
@@ -172,12 +173,13 @@ function unitTests() {
 	errorCase();
 }
 
+////////////End of Unit Tests //////////////////////////////////
+
 unitTests();
+
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-
-ctx.globalAlpha = 0.9;
 
 var x_positions = calcXpositions(20,890,50);
 /* Übergabe des Array x_position an function sinusShape
@@ -185,23 +187,27 @@ und zuweisung des return-wertes von sinusShape an y_positions.
 */
 function drawFrame(){
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	
-	var ty = 0;
+
+	function shadowedSineWave() {
+
+		for (var i = 0; i < 10; i++) {
+			var dt = i * 0.08;
+			ctx.globalAlpha = i * 0.1;
+			var y_positions = sinusShape(x_positions, Date.now()/1000 + dt); 
+			drawRope(x_positions, y_positions, 6, "#e04c52", "#e04c52");
+
+			console.log("number of sine wave: " + i + "ty: " + dt + "gA: " + ctx.globalAlpha);
+		}
+	} 
+	shadowedSineWave();
+
 	ctx.globalAlpha = 1;
+	y_positions = sinusShape(x_positions, Date.now()*2/1000 + 3.14); 
+	drawRope(x_positions, y_positions, 6, "#296AE3", "#296AE3");
 
-	for (var i = 1; i<= 10; i++) {
-		ty = ty + 0.02;
-		ctx.globalAlpha = ctx.globalAlpha - 0.1;
-		var y_positions = sinusShape(x_positions, Date.now()/1000 + ty); 
-		drawRope(x_positions, y_positions, 3, "#e04c52", "#e04c52");
-		console.log("number of sine wave: " + i + "ty: " + ty + "gA: " + ctx.globalAlpha);
-	}
-
-		var y_positions = sinusShape(x_positions, Date.now()*2/1000 + 3.14); 
-		drawRope(x_positions, y_positions, 6, "#296AE3", "#296AE3");
-
-	//	y_positions = sinusShape(x_positions, Date.now()/1000 + 0.01); 
-	//	drawRope(x_positions, y_positions, 6);
+	ctx.globalAlpha = 0.6;
+	y_positions = sinusShape(x_positions, Date.now()/1000 + 0.01); 
+	drawRope(x_positions, y_positions, 1, "black", "black");
 }
 
 setInterval(drawFrame, 20);
