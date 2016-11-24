@@ -51,7 +51,7 @@ tx: translation links, rechts
 	return yps;
 }
 
-function calcXpositions(start, end, count) {
+function fence(start, end, count) {
 	if (count<2) {
 		throw new Error("Count must be two or higher");
 	}
@@ -97,7 +97,7 @@ function unitTests() {
 	}
 	
 	function trivialCase() {
-		var test_positions = calcXpositions(3,8,2);
+		var test_positions = fence(3,8,2);
 		if (arrayCompare(test_positions, [3,8]) !== true) {
 			console.log("Test failed. Expected result to be [3,8]");
 		}
@@ -148,18 +148,18 @@ function unitTests() {
 	}
 
 	function normalCase() {
-		var test_positions = roundNum(calcXpositions(3,8,4));
+		var test_positions = roundNum(fence(3,8,4));
 		var shouldBeResult = [3,4.67,6.33,8];
 		if (arrayCompare(test_positions, shouldBeResult) !== true) {
-			console.log("Test failed. Expected calcXpositions to return roughly: " + shouldBeResult);
+			console.log("Test failed. Expected fence to return roughly: " + shouldBeResult);
 		}
 	}
 
 	function errorCase() {
 		try { 
-			calcXpositions(3,8,1);
+			fence(3,8,1);
 			console.log("Test failed: Expected thrown error if count < 2");
-			// if this line is reached, it means calcXpositions did not
+			// if this line is reached, it means fence did not
 			// throw an error.
 		} catch(err) {}
 	}
@@ -172,43 +172,3 @@ function unitTests() {
 	normalCase();
 	errorCase();
 }
-
-////////////End of Unit Tests //////////////////////////////////
-
-unitTests();
-
-
-var canvas = document.getElementById("myCanvas");
-var ctx = canvas.getContext("2d");
-
-var x_positions = calcXpositions(20,890,50);
-/* Übergabe des Array x_position an function sinusShape
-und zuweisung des return-wertes von sinusShape an y_positions.
-*/
-function drawFrame(){
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-	function shadowedSineWave() {
-
-		for (var i = 0; i < 10; i++) {
-			var dt = i * 0.08;
-			ctx.globalAlpha = i * 0.1;
-			var y_positions = sinusShape(x_positions, Date.now()/1000 + dt); 
-			drawRope(x_positions, y_positions, 6, "#e04c52", "#e04c52");
-
-			console.log("number of sine wave: " + i + "ty: " + dt + "gA: " + ctx.globalAlpha);
-		}
-	} 
-	shadowedSineWave();
-
-	ctx.globalAlpha = 1;
-	y_positions = sinusShape(x_positions, Date.now()*2/1000 + 3.14); 
-	drawRope(x_positions, y_positions, 6, "#296AE3", "#296AE3");
-
-	ctx.globalAlpha = 0.6;
-	y_positions = sinusShape(x_positions, Date.now()/1000 + 0.01); 
-	drawRope(x_positions, y_positions, 1, "black", "black");
-}
-
-setInterval(drawFrame, 20);
-
