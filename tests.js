@@ -84,6 +84,18 @@ function unitTests() {
 		} catch(err) {}
 	}
 
+	function testTolerantArrayCompare(){
+		if (tolerantArrayCompare([1,3,6],[1,3,6], 0.1) !== true) {
+			console.log("Test failed. tolerantArrayCompare() should return true, because arrays are equal.");
+		}
+		if (tolerantArrayCompare([1,3,5],[1,3,6], 0.1) !== false) {
+			console.log("Test failed. tolerantArrayCompare() should return false, because arrays are different and tolerance is exceeded.");
+		}
+		if (tolerantArrayCompare([2.1,3,5],[2,3,5], 0.2) !== true) {
+			console.log("Test failed. tolerantArrayCompare() should return true, because arrays are different but  tolerance is not exceeded.");
+		}
+	}
+
 	testRoundNum();
 	testFuzzyNumArrayCompare();
 
@@ -91,4 +103,5 @@ function unitTests() {
 	trivialCase();
 	normalCase();
 	errorCase();
+	testTolerantArrayCompare();
 }

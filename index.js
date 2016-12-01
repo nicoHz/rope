@@ -20,7 +20,7 @@ function drawFrame(){
 			var y_positions = sinusShape(x_positions, Date.now()/1000 + dt); 
 			drawRope(x_positions, y_positions, 6, "#e04c52", "#e04c52");
 
-			console.log("number of sine wave: " + i + "ty: " + dt + "gA: " + ctx.globalAlpha);
+//			console.log("number of sine wave: " + i + "ty: " + dt + "gA: " + ctx.globalAlpha);
 		}
 	} 
 	shadowedSineWave();
