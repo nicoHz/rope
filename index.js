@@ -1,6 +1,7 @@
-
-unitTests();
-
+var fence = require('fence');
+var lib = require('./lib');
+var drawRope = require('./lib').drawRope;
+var sinusShape = require('./lib').sinusShape;
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");

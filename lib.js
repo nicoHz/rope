@@ -51,45 +51,7 @@ tx: translation links, rechts
 	return yps;
 }
 
-function fence(start, end, count) {
-	if (count<2) {
-		throw new Error("Count must be two or higher");
-	}
-	var distance = (end-start) / (count -1);
-	var singleXs = [];
-	for (var n=0; n < count; n++) {
-		var xn = start + n * distance; 
-		singleXs.push(xn);
-	}
-	return singleXs;
-}
-
-function arrayCompare(array1, array2) {
-	if (array1.length != array2.length) {
-		return false;
-	}
-	for (var i = 0; i < array1.length; i++) {
-		if (array1[i] != array2[i]) {
-			return false;
-		}
-	}
-	return true;
-}
-
-function tolerantArrayCompare(array1,array2,tolerance){
-	if (array2.length != array1.length) {    
-		return false;
-	} 
-
-	for (var i = 0; i < array2.length; i++) {
-		var difference = array1[i] - array2[i];
-		if (difference < 0) {
-			difference = difference * -1;
-		}
-		if (difference > tolerance) {
-			return false;
-		}
-	}
-	return true;        
-}
-
+module.exports = {
+    drawRope: drawRope,
+    sinusShape: sinusShape
+};
