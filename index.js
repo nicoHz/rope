@@ -19,7 +19,7 @@ function drawFrame(){
 			var dt = i * 0.08;
 			ctx.globalAlpha = i * 0.1;
 			var y_positions = sinusShape(x_positions, Date.now()/1000 + dt); 
-			drawRope(x_positions, y_positions, 6, "#e04c52", "#e04c52");
+			drawRope(ctx, x_positions, y_positions, 6, "#e04c52", "#e04c52");
 
 //			console.log("number of sine wave: " + i + "ty: " + dt + "gA: " + ctx.globalAlpha);
 		}
@@ -28,11 +28,11 @@ function drawFrame(){
 
 	ctx.globalAlpha = 1;
 	y_positions = sinusShape(x_positions, Date.now()*2/1000 + 3.14); 
-	drawRope(x_positions, y_positions, 6, "#296AE3", "#296AE3");
+	drawRope(ctx, x_positions, y_positions, 6, "#296AE3", "#296AE3");
 
 	ctx.globalAlpha = 0.6;
 	y_positions = sinusShape(x_positions, Date.now()/1000 + 2); 
-	drawRope(x_positions, y_positions, 1, "black", "black");
+	drawRope(ctx, x_positions, y_positions, 1, "black", "black");
 }
 
 setInterval(drawFrame, 20);

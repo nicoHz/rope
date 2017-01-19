@@ -1,5 +1,5 @@
 
-function drawRope(horizontalPositions, verticalPositions, radius, colorFill, colorStyle) {
+function drawRope(ctx, horizontalPositions, verticalPositions, radius, colorFill, colorStyle) {
 	if (horizontalPositions.length !== verticalPositions.length) {
 		throw new Error("horizontalPositions.length does not match verticalPositions.length");
 	}
